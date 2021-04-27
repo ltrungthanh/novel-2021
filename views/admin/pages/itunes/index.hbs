@@ -1,0 +1,133 @@
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="/plugins/table/datatable/datatables-light.css">
+<link rel="stylesheet" type="text/css" href="/plugins/table/datatable/dt-global_style-light.css">
+<link href="/plugins/loaders/custom-loader.css" rel="stylesheet" type="text/css">
+<!-- END PAGE LEVEL STYLES -->
+
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+        {{#each messages }}
+        {{>admin/message}}
+        {{/each}}
+        <div class="row layout-top-spacing">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <div class="table-responsive mb-4 mt-4">
+                        <div class="text-center">
+                            <button id="crawlData" class="btn btn-secondary btn-lg mb-3 mr-3">
+                                <div id="isLoadingCrawl" class=" spinner-grow text-white mr-2 align-self-center loader-sm">Loading...</div>
+                                Update dữ liệu !
+                            </button>
+                            <div class=" d-none alert alert-gradient mb-2" role="alert"> <button type="button" class="close"
+                                    data-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" data-dismiss="alert" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-x close">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg></button> <strong>Thông báo</strong> <div  id="msg"></div>
+                        </div>
+                                    <div class="seperator-header">
+                                <a href="/admin/hosts/add-client">
+                                    <h4 class="">Thêm mới </h4>
+                                </a>
+                            </div>
+                        <table id="zero-config" class="table table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Tên bài hát</th>
+                                    <th>Ảnh đại diện</th>
+                                    <th>Thông tin bài hát</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Ngày tạo</th>
+                                    <th class="no-content">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each itunes}}
+                                <tr>
+                                    <td>{{this.name}}</td>
+                                    <td> <img class="img-fluid" src="{{this.image}}"></td>
+                                    <td>
+
+                                        <span class="text-success">TOP : {{ this.currentTop}}
+                                        </span>
+                                        <br>
+                                        <span class="text-info">Ngày xuất bản : </span>
+                                        <br>
+                                        <p>{{ this.releaseDate}}</p>
+                                    </td>
+                                    <td>{{formatDate this.updated_date}}</td>
+                                    <td>{{formatDate this.created_date}}</td>
+                                    <td>
+                                        <a href="/admin/itunes/edit-itune/{{this._id}}" class="btn btn-info">Edit</a>
+                                        <a href="/admin/itunes/delete-itune/{{this._id}}"
+                                            title="Xóa bài hát này khỏi danh sách" class="btn btn btn-danger ">Xóa</a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Tên bài hát</th>
+                                    <th>Ảnh đại diện</th>
+                                    <th>Thông tin bài hát</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Ngày tạo</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{>admin/footer}}
+
+</div>
+<!--  END CONTENT AREA  -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/plugins/table/datatable/datatables.js"></script>
+<script>
+    $('#zero-config').DataTable({
+        "oLanguage": {
+            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+            "sInfo": "Showing page _PAGE_ of _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Search...",
+            "sLengthMenu": "Results :  _MENU_",
+        },
+        "stripeClasses": [],
+        "lengthMenu": [7, 10, 20, 50],
+        "pageLength": 7
+    });
+</script>
+
+<script>
+    var isCrawl = false;
+    $('#isLoadingCrawl').hide();
+   // $('#msg').parent().hide();
+    function crawlData() {
+        if (!isCrawl) {
+            isCrawl = true;
+            $('#isLoadingCrawl').show();
+            $.ajax({
+                url: "/admin/itunes/crawl-tunes",
+                type: 'GET',
+                success: function (res) {
+                    $('#isLoadingCrawl').hide();
+                    isCrawl = false;
+                    console.log(res);
+                    $('#msg').text(res.msg);
+                     $('#msg').parent().removeClass('d-none');
+                }
+            });
+        }
+
+    }
+    $(document).ready(function () {
+        $('#crawlData').on('click', crawlData);
+    });
+</script>

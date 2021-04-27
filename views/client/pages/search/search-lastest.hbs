@@ -1,0 +1,20 @@
+{{#each novels}}
+<div class="row" itemscope="">
+    <div class="col-xs-9 col-sm-6 col-md-5 col-title"><span class="glyphicon glyphicon-chevron-right"></span>
+        <h3><a href="{{getNovelLink this.novel_id}}" title="{{this.novel_name}}">{{this.novel_name}}</a></h3>
+        <span class="label-title {{#if_eq this.novel_status 1}} label-full{{/if_eq}}  {{#if_eq this.new true}} label-new {{/if_eq}}  {{#if_eq this.hot true}}label-hot {{/if_eq}} "></span>
+    </div>
+    <div class="hidden-xs col-sm-3 col-md-3 col-genre text-ccc">
+         {{#each this.novel_genres}}
+                            <a href="{{getGenreLink null this null}}">{{capitalizeFirstLetter this}}</a>{{#if_eq @last false}}, {{/if_eq}}
+          {{/each}}
+        
+        </div>
+    <div class="col-xs-3 col-sm-3 col-md-2 col-chap text-info"><a
+            href="{{getChapterLink this.novel_id this.recentChapter.chapter_id}}"
+            title="Chapter {{this.recentChapter.chapter_name}}"><span class="chr-text">Chapter
+                {{this.recentChapter.chapter_name}}</span></a></div>
+    <div class="hidden-xs hidden-sm col-md-2 col-time text-ccc">{{getDateTimeAgo this.crawler_date}}
+    </div>
+</div>
+{{/each}}

@@ -1,0 +1,4 @@
+{{#each results}}
+<a href="{{getNovelLink this.novel_id}}" class="list-group-item" title="{{this.novel_name}} ">{{this.novel_name}} </a>
+{{/each}}
+<a href="/search?keyword={{keyword}}" class="list-group-item" title="See more results"> <i>See more results <span class="glyphicon glyphicon-search"></span></i></a>

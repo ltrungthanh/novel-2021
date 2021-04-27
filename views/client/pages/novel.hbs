@@ -1,0 +1,237 @@
+<div id="wrapper">
+    {{> client/header}}
+    <main id="container" class="" style="">
+        <div class="navbar-breadcrumb" style="display: block">
+            <div class="container breadcrumb-container">
+                <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href=""><span
+                                class="glyphicon glyphicon-home"></span></a><a itemprop="item" href="/"
+                            title="{{getDomainDesc}}"><span itemprop="name">Novel</span></a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item"
+                            href="{{getGenreLink null firstGenre null}}" title="{{firstGenre}}"><span
+                                itemprop="name">{{firstGenre}}</span></a>
+                        <meta itemprop="position" content="2">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="active">
+                        <h1><a itemprop="item" href="{{getNovelLink novel_info.novel_id}}"
+                                title="{{novel_info.novel_name}}"><span
+                                    itemprop="name">{{novel_info.novel_name}}</span></a></h1>
+                        <meta itemprop="position" content="2">
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="container" id="novel">
+            <div class="col-xs-12 col-sm-12 col-md-9 col-novel-main" itemscope="" itemtype="http://schema.org/Book">
+                <div class="col-xs-12 col-info-desc">
+                    <meta itemprop="inLanguage" content="en-US">
+                    <meta itemprop="image" content="{{ getShareImage config}}">
+                    {{#each novel_info.novel_genres }}
+                    <meta itemprop="genre" content="{{getGenreLink null this null}}">
+                    {{/each}}
+
+                    <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <meta itemprop="name" content="{{novel_info.novel_author}}">
+                    </span>
+                    <div class="header-list">
+                        <h2>Novel info</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 info-holder csstransforms3d">
+                        <div class="books">
+                            <div class="desc">
+                                <h3 class="title" itemprop="name">{{novel_info.novel_name}}</h3>
+                            </div>
+                            <div class="book"><img src="{{getNovelAvatar novel_info.novel_id}}"
+                                    alt="{{novel_info.novel_name}}"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 desc">
+                        <h3 class="title">{{novel_info.novel_name}}</h3>
+                        <div class="rate-info">
+                            <div class="rate">
+                                <input type="hidden" id="rateVal" value="{{getavgPoint novel_info.avgPointType2}}" style="display: none;">
+                                <div id="rating" data-novel-id="{{novel_info.novel_id}}"></div>
+                                <div id="text__rating"></div>
+                            </div>
+                            <div class="small" itemprop="aggregateRating" itemscope=""
+                                itemtype="http://schema.org/AggregateRating">
+                                <meta itemprop="worstRating" content="1"><em>Rating:
+                                    <strong><span itemprop="ratingValue">{{getavgPoint
+                                            novel_info.avgPointType2}}</span></strong>
+                                    /
+                                    <span itemprop="bestRating" class="text-muted">10</span>
+                                    from
+                                    <strong><span itemprop="reviewCount">{{novel_info.voteCountType2}}</span>
+                                        ratings</strong></em>
+                            </div>
+                        </div>
+                        <ul class="info info-meta">
+                            <li>
+                                <h3>Alternative names: </h3>{{novel_info.novel_other_name}}
+                            </li>
+                            <li>
+                                <h3>Author:</h3> {{novel_info.novel_author}}
+
+                            </li>
+                            <li>
+                                <h3>Genre:</h3>
+                                {{#each novel_info.novel_genres }}
+                                <a href="{{getGenreLink null this null}}">{{capitalizeFirstLetter this}}</a>,
+                                {{/each}}
+                            </li>
+                            {{#if_not_eq novel_info.novel_source undefine}}
+                            <li>
+                                <h3>Source:</h3>{{novel_info.novel_source}}
+                            </li>
+                            {{/if_not_eq}}
+                            <li>
+                                <h3>Status:</h3>
+                                {{#if_eq novel_info.novel_status 1}}
+                                <a href="{{getCompletedNovelLink}}" class="text-primary">Completed</a>
+                                {{/if_eq}}
+
+                                {{#if_eq novel_info.novel_status 0}}
+                                <a href="{{getOngoingNovelLink}}" class="text-primary">Ongoing</a>
+                                {{/if_eq}}
+                            </li>
+                        </ul><a class="btn btn-danger btn-read-now"
+                            href="{{getChapterLink novel_info.novel_id novel_info.firstChapter.chapter_id}}">READ
+                            NOW</a>
+                    </div>
+                </div>
+                <div class="col-xs-12"></div>
+                <div class="col-xs-12">
+                    <div class="l-chapter">
+                        <div class="item">
+                            <div class="item-title"><i class="icon glyphicon glyphicon-file"></i> Latest chapter</div>
+                            <div class="item-value"><a
+                                    href="{{getChapterLink novel_info.novel_id novel_info.recentChapter.chapter_id}}"
+                                    title="Chapter {{novel_info.recentChapter.chapter_name}}">
+                                    Chapter {{novel_info.recentChapter.chapter_name}} </a></div>
+                            <div class="item-time"> {{getDateTimeAgo novel_info.crawler_date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <ul id="novel-detail-tabs" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#tab-description" id="tab-description-title"
+                                role="tab" data-toggle="tab">
+                                Description</a></li>
+                        <li role="presentation"><a href="#tab-chapters" id="tab-chapters-title" role="tab"
+                                data-toggle="tab">
+                                Chapter List</a></li>
+                        <li role="presentation"><a href="#tab-author" id="tab-author-title" role="tab"
+                                data-toggle="tab">
+                                More from author</a></li>
+                        <li role="presentation"><a href="#tab-comment" id="tab-comment-title" role="tab"
+                                data-toggle="tab">
+                                Comments</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="tab-description">
+                            <div class="desc-text" itemprop="description">
+                                {{novel_info.novel_desc}}
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane " id="tab-chapters">
+                            <div class="col-xs-12" id="list-chapter">
+                                <div class="row" id="chapter-archive">
+                                    <div class="panel panel-default">
+                                        <div class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                {{#each chapters_chunk}}
+                                                <div class="row">
+                                                    {{#each this}}
+                                                    <div class="col-xs-12 col-sm-4 col-md-4">
+                                                        <ul class="list-chapter">
+                                                            {{#each this}}
+                                                            <li><span
+                                                                    class="glyphicon glyphicon-certificate"></span>&nbsp;
+                                                                <a href="{{getChapterLink ../../../novel_info.novel_id this.chapter_id}}"
+                                                                    title="Chapter {{this.chapter_name}}"><span
+                                                                        class="nchr-text">Chapter
+                                                                        {{this.chapter_name}}</span></a>
+                                                            </li>
+                                                            {{/each}}
+                                                        </ul>
+                                                    </div>
+                                                    {{/each}}
+                                                </div>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="loading"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab-author">
+                            <div class="more-from-author" id="index-novel-completed">
+                                <div class="row">
+                                    <div class="list list-thumb col-xs-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab-comment">
+                            <div id="novel-comment" class="col-xs-12 comment-box" style="display: none">
+                                <div id="disqus_thread"></div>
+                                <script>
+
+
+                                    function showNovelComment() {
+                                        var $novelComment = $('#novel-comment');
+                                        if ($novelComment.is(":hidden")) {
+                                            (function () { // DON'T EDIT BELOW THIS LINE
+                                                var d = document, s = d.createElement('script');
+                                                s.src = 'https://novelextra-com.disqus.com/embed.js';
+                                                s.setAttribute('data-timestamp', +new Date());
+                                                (d.head || d.body).appendChild(s);
+                                            })();
+                                        }
+                                        $novelComment.show();
+                                    }
+                                </script><noscript>Please enable JavaScript to view the <a
+                                        href="https://disqus.com/?ref_noscript">comments powered
+                                        by Disqus.</a></noscript>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="visible-md-block visible-lg-block col-md-3 text-center col-sidebar">
+                <div class="list list-novel list-side col-xs-12">
+                    <div class="header-list">
+                        <h4>Hot {{firstGenre}} Novel</h4>
+                    </div>
+                    {{#each novels_by_genres}}
+                    <div class="row hot-item">
+                        <div class="col-xs-12">
+                            <div class="hot-num top-{{addOne @index}}">{{addOne @index}}</div>
+                            <div class="s-title">
+                                <h3><a href="{{getNovelLink this.novel_id}}"
+                                        title="{{this.novel_name}}">{{this.novel_name}}</a></h3>
+                            </div>
+                            <div class="genre nowrap">
+                                {{#each this.novel_genres}}
+                                <a href="{{getGenreLink null this null}}">{{capitalizeFirstLetter this}}</a>{{#if_eq
+                                @last false}}, {{/if_eq}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </main>
+    {{> client/footer}}
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        novelDetail();
+    });
+</script>

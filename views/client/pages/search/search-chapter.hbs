@@ -1,0 +1,5 @@
+<select class="btn btn-success form-control chr-jump">
+    {{#each chapters}}
+    <option value="{{getChapterLink ../novel_id this.chapter_id}}">Chapter {{this.chapter_name}}</option>
+    {{/each}}
+</select>

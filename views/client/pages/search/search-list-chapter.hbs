@@ -1,0 +1,24 @@
+<body>
+    <div class="panel panel-default">
+        <div class="panel-collapse collapse in">
+            <div class="panel-body">
+                {{#each chapters_chunk}}
+                <div class="row">
+                    {{#each this}}
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <ul class="list-chapter">
+                            {{#each this}}
+                            <li> <span class="glyphicon glyphicon-certificate"></span>&nbsp; <a
+                                    href="{{getChapterLink ../../../novel_id this.chapter_id}}"
+                                    title="{{this.chapter_name}}"> <span class="nchr-text">Chapter {{this.chapter_name}}</span> </a></li>
+                             {{/each}}
+                        </ul>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

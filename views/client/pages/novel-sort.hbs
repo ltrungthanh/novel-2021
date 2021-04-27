@@ -1,0 +1,147 @@
+<div id="wrapper">
+    {{> client/header}}
+    <main id="container" class="" style="">
+        <div class="navbar-breadcrumb" style="display: block">
+            <div class="container breadcrumb-container">
+                <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/"><span
+                                class="glyphicon glyphicon-home"></span></a><a itemprop="item" href="/"
+                            title="{{getDomainDesc}}"><span itemprop="name">Novel</span></a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="active">
+                        <h1><a itemprop="item" href="{{getSortNovelLink typeSort status pagination.page}}"
+                                title="{{title}} {{#if_eq status 'completed'}}(Completed) {{/if_eq}}"><span itemprop="name">{{title}} {{#if_eq status 'completed'}}(Completed) {{/if_eq}}</span></a></h1>
+                        <meta itemprop="position" content="2">
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="container" id="list-page">
+            <div class="col-xs-12 col-sm-12 col-md-9 col-novel-main archive">
+                <div class="list list-novel col-xs-12">
+                    <div class="header-list">
+                        <h2>{{title}} {{#if_eq status 'completed'}}(Completed) {{/if_eq}}</h2>
+
+
+                        {{#if_eq showSuggestion true}}
+                        {{#if_eq status 'completed'}}
+                        <div class="filter"><a href="{{getSortNovelLink typeSort null null}}">Show All Novels</a></div>
+                        {{/if_eq}}
+                        {{#if_eq status null}}
+                        <div class="filter"><a href="{{getSortNovelLink typeSort 'completed' null}}">Show Completed
+                                Novels Only</a></div>
+                        {{/if_eq}}
+                        {{/if_eq}}
+
+
+                    </div>
+                    {{#each novels}}
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div><img src="{{getNovelAvatarV3 this.novel_id ../isMobile}}" class="cover"
+                                    alt="{{this.novel_name}}"></div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div><span class="glyphicon glyphicon-book"></span>
+                                <h3 class="novel-title"><a href="{{getNovelLink this.novel_id}}"
+                                        title="{{this.novel_name}}">{{this.novel_name}}</a></h3>
+
+                                {{#if_eq this.new true}}
+                                <span class="label-title label-new"></span>
+                                {{/if_eq}}
+                                {{#if_eq this.novel_status 1}}
+                                <span class="label-title label-full"></span>
+                                {{/if_eq}}
+                                {{#if_eq this.hot true}}
+                                <span class="label-title label-hot"></span>
+                                {{/if_eq}}
+
+                                <span class="author"><span
+                                        class="glyphicon glyphicon-pencil"></span>{{this.novel_author}} </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 text-info">
+                            <div><a href="{{getChapterLink this.novel_id this.recentChapter.chapter_id}}"
+                                    title="Chapter {{this.recentChapter.chapter_name}}"><span class="chr-text">Chapter
+                                        {{this.recentChapter.chapter_name}}</span></a></div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+
+                </div>
+            </div>
+            <div class="visible-md-block visible-lg-block col-md-3 text-center col-sidebar">
+                {{> client/genres-list}}
+                <div class="list list-novel list-side col-xs-12">
+                    <div class="header-list">
+                        <h4>Hot Novel</h4>
+                    </div>
+                    {{#each novels_hot}}
+                    <div class="row hot-item">
+                        <div class="col-xs-12">
+                            <div class="hot-num top-{{addOne @index}}">{{addOne @index}}</div>
+                            <div class="s-title">
+                                <h3><a href="{{getNovelLink this.novel_id}}"
+                                        title="{{this.novel_name}}">{{this.novel_name}}</a></h3>
+                            </div>
+                            <div class="genre nowrap">
+                             
+                            {{#each this.novel_genres}}
+                                <a href="{{getGenreLink null this null}}">{{capitalizeFirstLetter this}}</a>{{#if_eq @last false}}, {{/if_eq}} 
+                            {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                        {{/each}}
+                    
+                </div>
+            </div>
+        </div>
+        <div class="container text-center pagination-container">
+            <div class="col-xs-12 col-sm-12 col-md-9 col-novel-main">
+
+                {{#if_not_eq pagination.pageCount 0}}
+                <ul class="pagination pagination-sm">
+                    <li class="first {{#if_eq currentPage '1'}} disabled {{/if_eq}}"><a
+                            href="{{getSortNovelLink typeSort status  '1' }}" rel="next">« First</a></li>
+                    {{#paginate pagination type="previous"}}
+                    <li class="prev {{#if disabled}}disabled {{/if}}"><a
+                            href="{{getSortNovelLink ../typeSort ../status   n}}">«</a></li>
+                    {{/paginate}}
+
+                    {{#paginate pagination type="middle" limit="5"}}
+                    <li {{#if active}}class="active" {{/if}}><a
+                            href="{{getSortNovelLink ../typeSort ../status   n}}"><span>
+                                {{n}}</span></a></li>
+                    {{/paginate}}
+
+                    {{#paginate pagination type="next"}}
+                    <li class="next {{#if disabled}}disabled {{/if}}"><a
+                            href="{{getSortNovelLink ../typeSort ../status n}}">»</a></li>
+                    {{/paginate}}
+                    <li class="last {{#if_eq currentPage pagination.pageCount }} disabled {{/if_eq}}"><a
+                            href="{{getSortNovelLink typeSort status pagination.pageCount }}" rel="next">Last »</a></li>
+                </ul>
+                {{/if_not_eq}}
+
+                {{!-- <ul class="pagination pagination-sm">
+                    <li class="first"><a href="/latest-release-novel/completed" data-page="0">« First</a></li>
+                    <li class="prev"><a href="/latest-release-novel/completed" data-page="0">&lt;</a></li>
+                    <li><a href="/latest-release-novel/completed" data-page="0">1</a></li>
+                    <li class="active"><a href="/latest-release-novel/completed?page=2" data-page="1">2</a></li>
+                    <li><a href="/latest-release-novel/completed?page=3" data-page="2">3</a></li>
+                    <li><a href="/latest-release-novel/completed?page=4" data-page="3">4</a></li>
+                    <li><a href="/latest-release-novel/completed?page=5" data-page="4">5</a></li>
+                    <li><a href="/latest-release-novel/completed?page=6" data-page="5">6</a></li>
+                    <li><a href="/latest-release-novel/completed?page=7" data-page="6">7</a></li>
+                    <li class="next"><a href="/latest-release-novel/completed?page=3" data-page="2">&gt;</a></li>
+                    <li class="last"><a href="/latest-release-novel/completed?page=20" data-page="19">Last »</a></li>
+                </ul> --}}
+            </div>
+        </div>
+    </main>
+    {{> client/footer}}
+
+</div>

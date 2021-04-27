@@ -1,0 +1,97 @@
+<link rel="stylesheet" type="text/css" href="/plugins/editors/quill/quill.snow.css">
+<div id="content" class="main-content">
+    <div class="col-md-12 text-center">
+        <button id="submitForm" form="formEditClient" type="submit"
+            class="btn btn-secondary position-relative mt-3 mb-3 ml-2">SUBMIT</button>
+
+    </div>
+    <div class="layout-px-spacing">
+        {{#each messages}}
+        {{>admin/message}}
+        {{/each}}
+        <div class="row layout-top-spacing">
+
+            <div class="col-xl-6 col-lg-6 col-sm-6  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                <h4>Cấu hình chung</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content widget-content-area br-6">
+                        <form enctype="multipart/form-data" id="formEditClient" method="POST"
+                            action="/admin/hosts/add-client">
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-12">
+                                    <label for="">Host</label>
+                                    <input required="" name="host" value="" type="text" class="form-control"
+                                        placeholder="Điền domain , bỏ http , https">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="">Title Home</label>
+                                    <input name="settings[title_home]" value="" type="text" class="form-control"
+                                        placeholder="Title Home">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="">Desc Home</label>
+                                    <input name="settings[web_desc]" value="" type="text" class="form-control"
+                                        placeholder="Desc Home">
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="">Keywords</label>
+                                    <input name="settings[keywords]" value="" type="text" class="form-control"
+                                        placeholder="Enter Keywords">
+                                </div>
+                                     <div class="form-group col-md-12">
+                                    <label for="">Google Analytic</label>
+                                    <input name="settings[google_analytic]" value="" type="text" class="form-control"
+                                        placeholder="Enter google analytic scripts">
+                                </div>
+                            </div>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-sm-6  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                <h4>Ảnh tĩnh</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="form-row mb-2">
+                            <div class="form-group col-md-12 mb-4 mt-3">
+                                <label>Ảnh home page ( Hiển thị khi chia sẻ trang)</label>
+                                <input form="formEditClient" name="home_image" type="file" class="form-control-file">
+                                <div class="row col-md-6 mt-2">
+                                    <img alt="Chưa có ảnh " class="img-fluid" src="/img/homepage.png">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row mb-2">
+                            <div class="form-group col-md-12 mb-4 mt-3">
+                                <label>Logo</label>
+                                <input form="formEditClient" name="logo" type="file" class="form-control-file">
+                                <div class="row col-md-6 mt-2">
+                                    <img alt=" Chưa có ảnh" class="img-fluid" src="/img/logo.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+</div>
+</div>
+

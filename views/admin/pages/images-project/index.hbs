@@ -1,0 +1,97 @@
+<style>
+    #container-images-project img {
+        max-width: 200px;
+    }
+
+    #formSettings {
+        width: 100%;
+    }
+</style>
+<div id="content" class="main-content">
+    <div class="col-md-12 text-center">
+        <button id="submitForm" form="formSettings" type="submit"
+            class="btn btn-secondary position-relative mt-3 mb-3 ml-2">Cập nhật</button>
+
+    </div>
+    <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+            <div class="statbox widget box box-shadow col-md-12">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4>Hình ảnh dự án</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area">
+                    <div class="col-md-6">
+                        {{#each errors}}
+                        {{>admin/flash-message/error}}
+                        {{/each}}
+                        {{#each success}}
+                        {{>admin/flash-message/success}}
+                        {{/each}}
+                    </div>
+
+                    <form id="formSettings" enctype="multipart/form-data" method="POST" action="/admin/images-project">
+
+                        <div id="container-images-project" class="row col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                            {{#each images.content}}
+                            <div class="form-row mr-2">
+                                <div class="form-group col-md-12 mb-4 mt-3">
+                                    <a class="delete-image-project btn btn-danger">Xóa</a>
+                                    <div class="mb-2">
+                                        <input class="d-none" value="{{this}}" form="formSettings" name="{{this}}"
+                                            type="text" readonly class="form-control-file">
+                                        <img alt="Ảnh bị lỗi hoặc đã bị xóa" class="img-fluid" src="{{this}}">
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                        <a id="add-image-project" class="mt-1 mb-2 btn btn-primary">Thêm </a>
+                    </form>
+                </div>
+            </div>
+
+            <div style="display: none" class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div id="base-image-project" class="statbox widget box box-shadow mb-4">
+                    <div class="form-row mb-2">
+                        <div class="form-group">
+                            <a class="delete-image-project btn btn-danger">Xóa</a>
+                            <input name="" accept="image/jpeg,image/gif,image/png,image/x-eps" form="formSettings"
+                                type="file" class="form-control-file">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<script src="/assets/js/clipboard/clipboard.min.js"></script>
+<script src="/assets/js/forms/custom-clipboard.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var time = new Date().getTime();
+        var countImages = 0;
+        function addImageProject() {
+            countImages++;
+            const imageProjectItem = $('#base-image-project').clone(true);
+            imageProjectItem.find('input').attr('name', time + countImages)
+            $('#container-images-project').append(imageProjectItem.children().clone(true));
+        }
+
+        function deleteProjectImage() {
+            $(this).parent().parent().remove();
+        }
+        $('#add-image-project').on('click', addImageProject);
+        $('.delete-image-project').on('click', deleteProjectImage)
+    });
+
+
+</script>

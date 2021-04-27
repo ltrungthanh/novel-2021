@@ -1,0 +1,230 @@
+<!--  BEGIN CONTENT AREA  -->
+
+<script src="/plugins/ckeditor/ckeditor.js"></script>
+
+{{!-- <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script> --}}
+<style>
+    .banner-post,
+    .image-upload {
+        max-width: 150px;
+    }
+</style>
+<div id="content" class="main-content">
+    <div class="">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <div id="basic" class="col-lg-12 col-sm-12 col-12 layout-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    {{#if post._id}}
+                                    <h4>Sửa bài viết</h4>
+                                    {{else}}
+                                    <h4>Thêm bài viết</h4>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area">
+                            {{#each errors}}
+                            {{>admin/flash-message/error}}
+                            {{/each}}
+                            {{#each messages}}
+                            {{>admin/flash-message/success}}
+                            {{/each}}
+                            <div class="row">
+                                <div class="col-lg-10 col-10 col-md-10 mx-auto">
+                                    <form enctype="multipart/form-data" action="{{buildActionPosts post._id}}"
+                                        method="post">
+                                        <div class="form-group">
+                                            <label>Tiêu đề bài viết</label>
+                                            <input value="{{post.title}}" type="text" name="title"
+                                                placeholder="Enter title of post ..." class="form-control" required="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Mô tả ngắn ( Viết dài hơn 20 từ)
+                                                    </span>
+                                                </div>
+                                                <textarea minlength="80" required="" placeholder="Enter short desc... "
+                                                    name="short_desc" class="form-control"
+                                                    aria-label="With textarea">{{post.short_desc}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <label>Thể Loại Bài Viết</label>
+                                            <select required="" name="type" class="form-control col-md-6">
+                                                <option {{selected 'news' post.type }} value="news">TIN TỨC</option>
+                                                <option {{selected 'event' post.type }} value="event">SỰ KIỆN</option>
+                                                <option {{selected 'trending' post.type }} value="trending">NỔI BẬT</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label>Công khai</label>
+                                            <br>
+                                            <label class="switch s-primary mr-2">
+                                                <input {{checked post.isPublic }} name="isPublic" type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label>Ảnh đại diện</label>
+                                            <small id="emailHelp" class="form-text text-warning">Không cần resize ảnh
+                                                đại diện , website đã tự động resize !</small>
+
+                                            <input accept="image/jpeg,image/gif,image/png,image/x-eps"
+                                                name="banner_image" type="file" class="form-control-file">
+                                            <div class="row col-md-6 mt-1">
+                                                <img src="{{post.banner_image}}" class="banner-post"
+                                                    alt=" Chưa có ảnh !" class="img-fluid" src="#">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Nội dung </label>
+                                            <small id="emailHelp" class="form-text text-warning">Không cần set font-size
+                                                , hãy để mặc định ( Default) để website tự căn chỉnh</small>
+                                            <textarea name="body" id="editor1" class="ckeditor" required=""
+                                                value="hahaha" placeholder="Enter short description of post ...">
+                                            {{{post.body}}}
+                                        </textarea>
+                                        </div>
+                                        {{#if post._id}}
+                                        <input type="submit" class="mt-4 btn btn-primary" value="Sửa bài">
+
+                                        {{else}}
+                                        <input type="submit" class="mt-4 btn btn-primary" value="Đăng bài">
+
+                                        {{/if}}
+                                    </form>
+                                    {{!-- 
+                                    <div class="form-group mt-4 mb-4">
+
+                                        <div class="widget-header">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                                    <h4>Tool upload ảnh</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- uploaded photos Container -->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="uploadedPhotos">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-content widget-content-area">
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <!-- Progress Bar -->
+                                                    <div class="row mt-2">
+                                                        <div class="col-md-4">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-striped active"
+                                                                    role="progressbar" aria-valuenow="0"
+                                                                    aria-valuemin="0" aria-valuemax="100"
+                                                                    style="width: 0%">
+                                                                    <span class="sr-only"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Photos upload Form -->
+                                                    <form id="upload-photos" method="post" action="/upload_photos"
+                                                        enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="photos-input">Chọn ảnh để upload</label>
+                                                            <input class="form-control-file"
+                                                                accept="image/jpeg,image/gif,image/png,image/x-eps"
+                                                                id="photos" type="file" name="photos[]"
+                                                                multiple="multiple">
+                                                        </div>
+                                                        <br />
+                                                        <input class="btn btn-primary" type="submit"
+                                                            name="Photo Uploads" value="Upload" />
+                                                    </form>
+                                                    <br />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{>admin/footer}}
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        CKEDITOR.replace('editor1');
+
+        $('#upload-photos').on('submit', function (event) {
+            event.preventDefault();
+            var files = $('#photos').get(0).files,
+                formData = new FormData();
+            if (files.length === 0) {
+                alert('Select atleast 1 file to upload.');
+                return false;
+            }
+            // Append the files to the formData.
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                formData.append('photos[]', file, file.name);
+            }
+            // Handle Photos Upload
+            uploadPhotos(formData);
+        });
+    });
+
+
+    function uploadPhotos(formData) {
+        $.ajax({
+            url: '/admin/posts/uploadImages',
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (event) {
+                    var progressBar = $('.progress-bar');
+                    if (event.lengthComputable) {
+                        var percent = (event.loaded / event.total) * 100;
+                        progressBar.width(percent + '%');
+                        if (percent === 100) {
+                            progressBar.removeClass('active');
+                        }
+                    }
+                });
+                return xhr;
+            }
+        }).done(showPhotos).fail(function (xhr, status) {
+            alert(status);
+        });
+    }
+
+    function showPhotos(data) {
+        console.log(data);
+        for (var i in data) {
+            $('#uploadedPhotos').prepend(`<img class = "image-upload"  src="${data[i]}" /> <br> <input type = "text" class = "form-control mt-2 col-md-4" value = "${data[i]}">`)
+        }
+    }
+
+</script>
+<!--  END CONTENT AREA  -->

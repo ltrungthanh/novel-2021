@@ -1,0 +1,207 @@
+<script src="/plugins/ckeditor/ckeditor.js"></script>
+<div id="content" class="main-content">
+    <div class="col-md-12 text-center">
+        <button id="submitForm" form="formSettings" type="submit"
+            class="btn btn-secondary position-relative mt-3 mb-3 ml-2">Cập nhật</button>
+
+    </div>
+    <div class="layout-px-spacing">
+        {{#each errors}}
+        {{>admin/flash-message/error}}
+        {{/each}}
+        {{#each messages}}
+        {{>admin/flash-message/success}}
+        {{/each}}
+        <div class="row layout-top-spacing">
+            <form id="formSettings" enctype="multipart/form-data" method="POST" action="/admin/introduction">
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="statbox widget box box-shadow mb-4">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Thơ</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-6">
+                                    <label>Nội dung</label>
+                                    <textarea value="{{introduction.content.poem}}" id="poem" name="poem"
+                                        class="editor form-control"> {{introduction.content.poem}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statbox widget box box-shadow mb-4">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Thưởng ngoạn mỹ cảnh</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="form-row col-md-6">
+                                    <div class="form-group ">
+                                        <label>Nội dung</label>
+                                        <textarea id="thuong_ngoan_my_canh" name="thuong_ngoan_my_canh"
+                                            value="{{introduction.content.thuong_ngoan_my_canh}}"
+                                            class="editor form-control">{{introduction.content.thuong_ngoan_my_canh}}
+                                             </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row col-md-6">
+                                   
+                                             <div class="form-group col-md-6">
+                                            <label>Ảnh to</label>
+                                            <input accept="image/jpeg,image/gif,image/png,image/x-eps"
+                                                form="formSettings" name="thuong_ngoan_my_canh_big" type="file"
+                                                class="form-control-file">
+                                            <div class="row col-md-6 mt-2">
+                                                <img alt="Chưa có ảnh " class="img-fluid"
+                                                    src="/img/thuong_ngoan_my_canh_big.png">
+                                            </div>
+                                        </div>
+                                  <div class="form-group col-md-6">
+                                            <label>Ảnh nhỏ</label>
+                                            <input accept="image/jpeg,image/gif,image/png,image/x-eps"
+                                                form="formSettings" name="thuong_ngoan_my_canh_small" type="file"
+                                                class="form-control-file">
+                                            <div class="row col-md-6 mt-2">
+                                                <img alt="Chưa có ảnh " class="img-fluid"
+                                                    src="/img/thuong_ngoan_my_canh_small.png">
+                                            </div>
+                                        </div>
+                                
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statbox widget box box-shadow mb-4">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Vị trí kim cương</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="form-row col-md-6">
+                                    <div class="form-group ">
+                                        <label>Nội dung</label>
+                                        <textarea id="vi_tri_kim_cuong" name="vi_tri_kim_cuong"
+                                            value="{{introduction.content.vi_tri_kim_cuong}}" type="text"
+                                            class="editor form-control" placeholder="Tiêu đề website">
+                                            {{introduction.content.vi_tri_kim_cuong}}
+                                            </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row col-md-6">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statbox widget box box-shadow mb-4">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Tiện ích toàn mỹ</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="form-row col-md-6">
+                                    <div class="form-group ">
+                                        <label>Nội dung</label>
+                                        <textarea id="tien_ich_toan_my" name="tien_ich_toan_my"
+                                            value="{{introduction.content.tien_ich_toan_my}}" type="text"
+                                            class="editor form-control"
+                                            placeholder="tien_ich_toan_my">{{introduction.content.tien_ich_toan_my}} </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row col-md-6">
+                                   <div class="form-group col-md-6">
+                                        <label>Ảnh to</label>
+                                        <input accept="image/jpeg,image/gif,image/png,image/x-eps" form="formSettings"
+                                            name="tien_ich_toan_my_image" type="file" class="form-control-file">
+                                        <div class="row col-md-6 mt-2">
+                                            <img alt="Chưa có ảnh " class="img-fluid"
+                                                src="/img/tien_ich_toan_my_image.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statbox widget box box-shadow mb-4">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Kiến trúc Châu Âu</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="form-row col-md-6">
+                                    <div class="form-group ">
+                                        <label>Nội dung</label>
+                                        <textarea id="kien_truc_chau_au" name="kien_truc_chau_au"
+                                            value="{{introduction.content.kien_truc_chau_au}}" type="text"
+                                            class="editor form-control"
+                                            placeholder="kien_truc_chau_au">{{introduction.content.kien_truc_chau_au}} </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Ảnh to</label>
+                                            <input accept="image/jpeg,image/gif,image/png,image/x-eps"
+                                                form="formSettings" name="kien_truc_chau_au_image" type="file"
+                                                class="form-control-file">
+                                            <div class="row col-md-6 mt-2">
+                                                <img alt="Chưa có ảnh " class="img-fluid"
+                                                    src="/img/kien_truc_chau_au_image.png">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="/assets/js/clipboard/clipboard.min.js"></script>
+<script src="/assets/js/forms/custom-clipboard.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".editor").each(function () {
+            let id = $(this).attr('id');
+            let value = $(this).attr('value');
+            CKEDITOR.replace(id);
+            CKEDITOR.instances[id].setData(value);
+        });
+
+        // CKEDITOR.replace('poem');
+        //   CKEDITOR.instances['poem'].setData('dsdsds'); // where editor1 is id
+    });
+
+
+</script>

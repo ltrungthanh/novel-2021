@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{config.title_home}}</title>
+    <meta property="og:title" content="{{config.title_home}}">
+    <meta itemprop="name" content="{{config.title_home}}">
+    <meta name="description" itemprop="description" content="{{config.web_desc}}">
+    <meta property="og:description" content="{{config.web_desc}}">
+    <meta itemprop="description" content="{{config.web_desc}}">
+    <meta name="keywords" content="{{config.keywords}}">
+    <meta property="og:keywords" content="{{config.keywords}}">
+    <meta property="og:url" content="{{getDomain}}">
+    <link rel="canonical" href="{{getDomain}}">
+    <meta property="og:type" content="website">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:image" content="{{ getShareImage config}}">
+    <meta property="og:locale" content="us">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="copyright" content="Copyright © 2021 {{getDomainDesc}}">
+    <meta name="Author" content="Novel 2021">
+    <link rel="preload" href="/fonts/RobotoCondensed-Regular.woff" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/glyphicons-halflings-regular.woff2" as="font" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{{getDomain}}images/sites/favicon.ico">
+    <link href="/css/style.min.css?v=6" rel="stylesheet" type="text/css">
+    <meta name="csrf-token" content="{{csrfToken}}">
+    <script type="text/javascript">
+        const ajaxUrl = '{{getDomain}}ajax';
+        const csrf = "{{csrfToken}}";
+        const appInfo = {};
+    </script>
+    <script type="text/javascript" src="/js/app.min.js"></script>
+    <script type="text/javascript" src="/js/scripts.min.js?v=7"></script>
+    {{{config.google_analytic}}}
+</head>
+
+<body>
+    {{{body}}}
+</body>
+
+
+</html>

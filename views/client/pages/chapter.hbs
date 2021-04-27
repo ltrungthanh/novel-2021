@@ -1,0 +1,144 @@
+<div id="wrapper">
+    {{> client/header}}
+    <main id="container" class=" " style="background-color: #F4F4F4">
+        <div class="navbar-breadcrumb" style="display: block">
+            <div class="container breadcrumb-container">
+                <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href=""><span
+                                class="glyphicon glyphicon-home"></span></a><a itemprop="item" href="/"
+                            title="{{getDomainDesc}}"><span itemprop="name">Novel</span></a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="">
+                        <h1><a itemprop="item" href="{{getNovelLink chapterInfo.novel.novel_id}}"
+                                title="{{chapterInfo.novel.novel_name}}"><span
+                                    itemprop="name">{{chapterInfo.novel.novel_name}}</span></a></h1>
+                        <meta itemprop="position" content="2">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="active"><a
+                            itemprop="item" href="{{getChapterLink chapterInfo.novel.novel_id chapterInfo.chapter_id}}"
+                            title="Chapter {{chapterInfo.chapter_name}}"><span itemprop="name">Chapter
+                                {{chapterInfo.chapter_name}}</span></a>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div id="chapter" class="chapter container">
+            <div class="row">
+                <div class="col-xs-12"><a class="novel-title" href="{{getNovelLink chapterInfo.novel.novel_id}}"
+                        title="{{chapterInfo.novel.novel_name}}">{{chapterInfo.novel.novel_name}}</a>
+                    <h2><a class="chr-title" href="{{getChapterLink chapterInfo.novel.novel_id chapterInfo.chapter_id}}"
+                            title="Chapter {{chapterInfo.chapter_name}}"><span class="chr-text">Chapter
+                                {{chapterInfo.chapter_name}}</span></a></h2>
+                    <hr class="chr-start"><button type="button"
+                        class="btn btn-responsive btn-success toggle-nav-open "><span
+                            class="glyphicon glyphicon-menu-up"></span></button>
+                    <div class="chr-nav" id="chr-nav-top">
+                        <div class="btn-group">
+                            <a {{#if_eq prevChapter null}}disabled {{/if_eq}} class="btn btn-success"
+                                href="{{getChapterLink chapterInfo.novel.novel_id prevChapter.chapter_id}}" {{#if_not_eq
+                                prevChapter null}}title="Chapter {{prevChapter.chapter_name}}" {{/if_not_eq}}
+                                id="prev_chap">
+
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="hidden-xs">Prev Chapter</span></a>
+
+                            <button type="button" class="btn btn-success chr-jump"><span
+                                    class="glyphicon glyphicon-list-alt"></span></button>
+                            <a {{#if_eq nextChapter null}}disabled {{/if_eq}} {{#if_not_eq nextChapter
+                                null}}title="Chapter {{nextChapter.chapter_name}}" {{/if_not_eq}}
+                                href="{{getChapterLink chapterInfo.novel.novel_id nextChapter.chapter_id}}"
+                                class="btn btn-success" id="next_chap">
+
+                                <span class="hidden-xs">Next Chapter</span>
+                                <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div>
+                    </div>
+                    <hr class="chr-end">
+                    <div id="chr-content" class="chr-c"
+                        style="font-family: Arial, sans-serif, serif; font-size: 18px; line-height: 160%; margin-top: 15px;">
+                        {{{chapterInfo.chapter_content}}}
+                    </div>
+                    <hr class="chr-end">
+                    <div class="chr-nav" id="chr-nav-bottom">
+                        <div class="btn-group">
+                            <a {{#if_eq prevChapter null}}disabled {{/if_eq}} class="btn btn-success"
+                                href="{{getChapterLink chapterInfo.novel.novel_id prevChapter.chapter_id}}" {{#if_not_eq
+                                prevChapter null}}title="Chapter {{prevChapter.chapter_name}}" {{/if_not_eq}}
+                                id="prev_chap">
+
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="hidden-xs">Prev Chapter</span></a>
+
+                            <button type="button" class="btn btn-success chr-jump"><span
+                                    class="glyphicon glyphicon-list-alt"></span></button>
+                            <a {{#if_eq nextChapter null}}disabled {{/if_eq}} {{#if_not_eq nextChapter
+                                null}}title="Chapter {{nextChapter.chapter_name}}" {{/if_not_eq}}
+                                href="{{getChapterLink chapterInfo.novel.novel_id nextChapter.chapter_id}}"
+                                class="btn btn-success" id="next_chap">
+
+                                <span class="hidden-xs">Next Chapter</span>
+                                <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div>
+                    </div>
+                    <div class="text-center"><button type="button" class="btn btn-warning" id="chr-error"
+                            data-chr-id="866261"><span class="glyphicon glyphicon-exclamation-sign"></span> Report
+                            chapter
+                        </button><button type="button" class="btn btn-info" id="chr-comment"><span
+                                class="glyphicon glyphicon-comment"></span> Comments
+                        </button></div>
+                    <div class="bg-info text-center visible-md visible-lg box-notice">
+                        Tip: You can use left, right, A and D keyboard keys to browse between chapters.
+                    </div>
+                    <div class="comments">
+                        <div class="row" id="fb-comment-chapter" style="display: none">
+                            <div id="disqus_thread"></div>
+                            <script>
+
+
+                                $chapterComment = $('#fb-comment-chapter');
+
+                                function toggleChapterComment() {
+                                    if ($chapterComment.is(":hidden")) {
+
+                                        (function () { // DON'T EDIT BELOW THIS LINE
+                                            var d = document, s = d.createElement('script');
+                                            s.src = 'https://novelextra-com.disqus.com/embed.js';
+                                            s.setAttribute('data-timestamp', +new Date());
+                                            (d.head || d.body).appendChild(s);
+                                        })();
+
+                                    }
+                                    $chapterComment.toggle();
+                                }
+                            </script>
+                            <noscript>Please enable JavaScript to view the <a
+                                    href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {{> client/footer}}
+</div>
+
+<script type="text/javascript">
+    const novel = {
+        id: '{{chapterInfo.novel.novel_id}}',
+        name: '{{chapterInfo.novel.novel_name}}',
+        url: '{{getNovelLink chapterInfo.novel.novel_id}}',
+    };
+    const chapter = {
+        id: '{{chapterInfo.chapter_id}}',
+        name: 'Chapter {{chapterInfo.chapter_name}}',
+        url: '{{getChapterLink chapterInfo.novel.novel_id chapterInfo.chapter_id}}',
+    };
+
+    $(document).ready(function () {
+        chapterDetail(novel, chapter);
+        $('#chr-comment').on('click', toggleChapterComment);
+    });
+</script>

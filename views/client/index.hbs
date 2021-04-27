@@ -1,0 +1,222 @@
+<div id="wrapper">
+    {{> client/header}}
+    <main id="container" class="" style="">
+        <div class="navbar-breadcrumb" style="display: block">
+            <div class="container breadcrumb-container">
+                <h1>Read novels online free 2021. Read daily updated english translated novels, light novels, web
+                    novels, korean novels and chinese novels. Read novels online, read light novel online, free light
+                    novel online.
+                </h1>
+            </div>
+        </div>
+        <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "url": "{{getDomain}}",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{getDomain}}/search?keyword={keyword}",
+            "query-input": "required name=keyword"
+        }
+    }
+</script>
+        <div class="container" id="index-novel-hot">
+            <div class="header-list">
+                <h2><a href="{{getHotNovelLink}}" title="Hot Novel">Hot Novel</a></h2><a href="{{getHotNovelLink}}"
+                    title="Hot Novel"><span class="glyphicon glyphicon-fire"></span></a><select id="hot-genre-select"
+                    class="form-control new-select">
+                    <option value="all">All</option>
+                    <option value="Action">Action</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Ai">Ai</option>
+                    <option value="Arts">Arts</option>
+                    <option value="Bender">Bender</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Ecchi">Ecchi</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Game">Game</option>
+                    <option value="Gender">Gender</option>
+                    <option value="Gender Bender">Gender Bender</option>
+                    <option value="Harem">Harem</option>
+                    <option value="Historical">Historical</option>
+                    <option value="History">History</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Josei">Josei</option>
+                    <option value="Lolicon">Lolicon</option>
+                    <option value="Martial">Martial</option>
+                    <option value="Martial Arts">Martial Arts</option>
+                    <option value="Mature">Mature</option>
+                    <option value="Mecha">Mecha</option>
+                    <option value="Modern Life">Modern Life</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Psychological">Psychological</option>
+                    <option value="Romance">Romance</option>
+                    <option value="School life">School life</option>
+                    <option value="Sci-fi">Sci-fi</option>
+                    <option value="Seinen">Seinen</option>
+                    <option value="Shoujo">Shoujo</option>
+                    <option value="Shoujo Ai">Shoujo Ai</option>
+                    <option value="Shounen">Shounen</option>
+                    <option value="Shounen Ai">Shounen Ai</option>
+                    <option value="Slice of Life">Slice of Life</option>
+                    <option value="Smut">Smut</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Supernatural">Supernatural</option>
+                    <option value="Tragedy">Tragedy</option>
+                    <option value="Urban">Urban</option>
+                    <option value="Wuxia">Wuxia</option>
+                    <option value="Xianxia">Xianxia</option>
+                    <option value="Xuanhuan">Xuanhuan</option>
+                    <option value="Yaoi">Yaoi</option>
+                    <option value="Yuri">Yuri</option>
+                </select>
+            </div>
+            <div class="index-novel">
+                {{#each trending}}
+                <div class="item top-{{addOne @index}}"><a href="{{getNovelLink this.novel_id}}"
+                        title="{{this.novel_name}}">
+
+                        {{#if_eq this.novel_status 1}}
+                        <span class="full-label"></span>
+                        {{/if_eq}}
+                        <img src="{{getNovelAvatarV2 @index this.novel_id}}" alt="{{this.novel_name}}"
+                            class="img-responsive item-img">
+                        <div class="title">
+                            <h3>{{this.novel_name}}</h3>
+                        </div>
+                    </a></div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="container" id="novel-list-index">
+            <div id="novel-history-main"
+                class="list list-novel list-history col-xs-12 col-sm-12 col-md-8 col-novel-main hidden-md-block hidden-lg-block">
+            </div>
+            <div class="list list-novel list-new col-xs-12 col-sm-12 col-md-8 col-novel-main">
+                <div class="header-list">
+                    <h2><a href="{{getLastestLink}}" title="">Latest Release</a></h2><a href="{{getLastestLink}}"
+                        title=""><span class="glyphicon glyphicon-menu-right"></span></a><select id="new-genre-select"
+                        class="form-control new-select">
+                        <option value="all">All</option>
+                        <option value="Action">Action</option>
+                        <option value="Adult">Adult</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Ai">Ai</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Bender">Bender</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Ecchi">Ecchi</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Game">Game</option>
+                        <option value="Gender">Gender</option>
+                        <option value="Gender Bender">Gender Bender</option>
+                        <option value="Harem">Harem</option>
+                        <option value="Historical">Historical</option>
+                        <option value="History">History</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Josei">Josei</option>
+                        <option value="Lolicon">Lolicon</option>
+                        <option value="Martial">Martial</option>
+                        <option value="Martial Arts">Martial Arts</option>
+                        <option value="Mature">Mature</option>
+                        <option value="Mecha">Mecha</option>
+                        <option value="Modern Life">Modern Life</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Psychological">Psychological</option>
+                        <option value="Romance">Romance</option>
+                        <option value="School life">School life</option>
+                        <option value="Sci-fi">Sci-fi</option>
+                        <option value="Seinen">Seinen</option>
+                        <option value="Shoujo">Shoujo</option>
+                        <option value="Shoujo Ai">Shoujo Ai</option>
+                        <option value="Shounen">Shounen</option>
+                        <option value="Shounen Ai">Shounen Ai</option>
+                        <option value="Slice of Life">Slice of Life</option>
+                        <option value="Smut">Smut</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Supernatural">Supernatural</option>
+                        <option value="Tragedy">Tragedy</option>
+                        <option value="Urban">Urban</option>
+                        <option value="Wuxia">Wuxia</option>
+                        <option value="Xianxia">Xianxia</option>
+                        <option value="Xuanhuan">Xuanhuan</option>
+                        <option value="Yaoi">Yaoi</option>
+                        <option value="Yuri">Yuri</option>
+                    </select>
+                </div>
+                <div class="list index-novel">
+                    {{#each novels}}
+                    <div class="row" itemscope="">
+                        <div class="col-xs-9 col-sm-6 col-md-5 col-title"><span
+                                class="glyphicon glyphicon-chevron-right"></span>
+                            <h3><a href="{{getNovelLink this.novel_id}}"
+                                    title="{{this.novel_name}}">{{this.novel_name}}</a></h3>
+
+                            {{#if_eq this.new true}}
+                            <span class="label-title label-new "> </span>
+                            {{/if_eq}}
+
+                            {{#if_eq this.hot true}}
+                            <span class="label-title label-hot"> </span>
+                            {{/if_eq}}
+
+                            {{#if_eq this.novel_status 1}}
+                            <span class="label-title label-full"> </span>
+                            {{/if_eq}}
+                        </div>
+                        <div class="hidden-xs col-sm-3 col-md-3 col-genre text-ccc">
+                            {{#each this.novel_genres}}
+                            <a href="{{getGenreLink null this null}}">{{capitalizeFirstLetter this}}</a> {{#if_eq @last
+                            false}}, {{/if_eq}}
+
+                            {{/each}}
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-2 col-chap text-info"><a
+                                href="{{getChapterLink this.novel_id this.recentChapter.chapter_id}}"
+                                title="Chapter {{this.recentChapter.chapter_name}}"><span class="chr-text">Chapter
+                                    {{this.recentChapter.chapter_name}}</span></a></div>
+                        <div class="hidden-xs hidden-sm col-md-2 col-time text-ccc">{{getDateTimeAgo this.crawler_date}}
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="visible-md-block visible-lg-block col-md-4 text-center col-sidebar">
+                <div id="novel-history-sidebar" class="list list-novel list-history col-xs-12"></div>
+                {{> client/genres-list}}
+            </div>
+        </div>
+        <div class="container"></div>
+        <div class="container" id="index-novel-completed">
+            <div class="list list-thumb col-xs-12">
+                <div class="header-list">
+                    <h2><a href="{{getCompletedNovelLink}}" title="Novel Completed">Novel Completed</a></h2><a
+                        href="{{getCompletedNovelLink}}" title="Novel Completed"><span
+                            class="glyphicon glyphicon-menu-right"></span></a>
+                </div>
+                <div class="row">
+                    {{#each completed}}
+                    <div class="col-xs-4 col-sm-3 col-md-2"><a href="{{getNovelLink this.novel_id}}"
+                            title="{{this.novel_name}}"><img style="max-width : 164px"
+                                src="{{getNovelAvatarV4 this.novel_id}}" alt="{{this.novel_name}}">
+                            <div class="caption">
+                                <h3>{{this.novel_name}}</h3><small class="btn-xs label-primary">Full -
+                                    {{this.totalChapter}} chapters</small>
+                            </div>
+                        </a></div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </main>
+    {{> client/footer}}
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        siteIndex();
+    });
+</script>

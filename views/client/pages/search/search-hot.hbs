@@ -1,0 +1,13 @@
+{{#each novels}}
+<div class="item top-{{addOne @index}}"> <a href="{{getNovelLink this.novel_id}}" title="{{this.novel_name}}">
+        {{#if_eq this.novel_status 1}}
+        <span class="full-label"></span>
+        {{/if_eq}}
+
+        <img src="{{getNovelAvatarV2 @index this.novel_id}}" alt="{{this.novel_name}}" class="img-responsive item-img">
+        <div class="title">
+            <h3>{{this.novel_name}}</h3>
+        </div>
+    </a>
+</div>
+{{/each}}
